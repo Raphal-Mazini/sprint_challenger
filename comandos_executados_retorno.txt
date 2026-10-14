@@ -1,3 +1,10 @@
-[ID]	[Name]	[Table]	[DataType]	[DataCategory]	[Description]	[IsHidden]	[IsUnique]	[IsKey]	[IsNullable]	[Alignment]	[SummarizeBy]	[ColumnStorage]	[Type]	[SourceColumn]	[Expression]	[FormatString]	[IsAvailableInMDX]	[SortByColumn]	[GroupingBehavior]	[SourceProviderType]	[DisplayFolder]	[AlternateOf]	[LineageTag]
-104	SLA_Orizon	Gestão de Insumos (Main)	Integer	Regular		false	false	false	true	Default	Sum	 hive metastore   presentation prod   prz cdp gi relatorio nima  (10)$SLA Orizon (104)	Data	SLA_Orizon		0	true		GroupOnValue				3819115c-096b-4c12-911d-f6be65ac9b91
-2868281	Meta Prazo Orizon	Gestão de Insumos (Main)	Integer	Regular		false	false	false	true	Default	Sum	 hive metastore   presentation prod   prz cdp gi relatorio nima  (10)$Coluna (2868281)	Calculated		IF('Gestão de Insumos (Main)'[Tipo_Item] in {"OPME","Medicamentos"},8,6)	0	true		GroupOnValue				462cb131-5786-4e59-af24-f09ff7289f9d
+EVALUATE
+SUMMARIZECOLUMNS(
+    'Gestão de Insumos (Main)'[Status Prazo Orizon],
+    "Linhas", COUNTROWS('Gestão de Insumos (Main)'),
+    "SLA vazio", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[SLA_Orizon]))),
+    "Sem Conc Tecnica", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item]))),
+    "Sem Conc Analitica", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Analitica_Item]))),
+    "Sem Conc Negociacao", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Negociacao_Item]))),
+    "Sem Conc Item", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Item])))
+)
