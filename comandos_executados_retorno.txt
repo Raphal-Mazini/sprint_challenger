@@ -1,10 +1,3 @@
-EVALUATE
-SUMMARIZECOLUMNS(
-    'Gestão de Insumos (Main)'[Status Prazo Orizon],
-    "Linhas", COUNTROWS('Gestão de Insumos (Main)'),
-    "SLA vazio", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[SLA_Orizon]))),
-    "Sem Conc Tecnica", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item]))),
-    "Sem Conc Analitica", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Analitica_Item]))),
-    "Sem Conc Negociacao", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Negociacao_Item]))),
-    "Sem Conc Item", COUNTROWS(FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Item])))
-)
+Gestão de Insumos (Main)[Status Prazo Orizon]	[Linhas]	[SLA vazio]	[Sem Conc Tecnica]	[Sem Conc Analitica]	[Sem Conc Negociacao]	[Sem Conc Item]
+No Prazo	747696		180580	181393	395292	395948
+Fora do Prazo	3921		4	4	87	89
