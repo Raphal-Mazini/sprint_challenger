@@ -1,27 +1,11 @@
-DEFINE
-    MEASURE 'Gestão de Insumos (Main)'[Finalizados NOVO] =
-        CALCULATE(
-            COUNTROWS('Gestão de Insumos (Main)'),
-            REMOVEFILTERS('Calendar'),
-            TREATAS(VALUES('Calendar'[Date]), 'Gestão de Insumos (Main)'[Data_Conclusao_Item])
-        )
-    MEASURE 'Gestão de Insumos (Main)'[% no Prazo NOVO] =
-        DIVIDE(
-            CALCULATE([Finalizados NOVO], 'Gestão de Insumos (Main)'[Status Prazo Orizon] = "No Prazo"),
-            [Finalizados NOVO]
-        )
-
-EVALUATE
-VAR meses =
-    FILTER(
-        DISTINCT(SELECTCOLUMNS(ALL('Calendar'[Date]), "Mes", EOMONTH('Calendar'[Date], 0))),
-        [Mes] >= DATE(2026, 1, 31) && [Mes] <= EOMONTH(TODAY(), 0)
-    )
-RETURN
-ADDCOLUMNS(
-    meses,
-    "% Atual", CALCULATE([% no Prazo Orizon], FILTER(ALL('Calendar'[Date]), EOMONTH('Calendar'[Date], 0) = [Mes])),
-    "% Novo", CALCULATE([% no Prazo NOVO], FILTER(ALL('Calendar'[Date]), EOMONTH('Calendar'[Date], 0) = [Mes])),
-    "Finalizados", CALCULATE([Finalizados NOVO], FILTER(ALL('Calendar'[Date]), EOMONTH('Calendar'[Date], 0) = [Mes]))
-)
-ORDER BY [Mes]
+[Mes]	[% Atual]	[% Novo]	[Finalizados]
+Sat, 31 Jan 2026 00:00:00	0.9997374639012864	0.9989928057553957	6950
+Sat, 28 Feb 2026 00:00:00	0.9930977360574268	0.9904288606662985	5433
+Tue, 31 Mar 2026 00:00:00	0.9997483517036589	0.9958019191226868	11672
+Thu, 30 Apr 2026 00:00:00	0.9958528428093646	0.999234205488194	7835
+Sun, 31 May 2026 00:00:00	0.9987970326806122	0.9974996874609326	7999
+Tue, 30 Jun 2026 00:00:00	0.998872773728113	0.9951698113207548	6625
+Fri, 31 Jul 2026 00:00:00	0.9996618765849535	0.998749022673964	6395
+Mon, 31 Aug 2026 00:00:00	0.9995936060688161	0.9982475904368506	7989
+Wed, 30 Sep 2026 00:00:00	0.9986445491512296	0.9981505944517833	7570
+Sat, 31 Oct 2026 00:00:00	1	0.9981438515081207	2155
