@@ -1,6 +1,1 @@
-cmotta: https://orizonbr-my.sharepoint.com/personal/cmotta_orizon_com_br/Documents/OPERA%C3%87%C3%95ES/BARE/Produtividade%20Esteiras/Produ%C3%A7%C3%A3o%20Integral.xlsx
-
-eacustodio: https://orizonbr-my.sharepoint.com/personal/eacustodio_orizon_com_br/Documents/Produtividade%20Salvados.xlsx
-Coutinho: https://orizonbr-my.sharepoint.com/personal/rcoutinho_orizon_com_br/Documents/%C3%81rea%20de%20Trabalho/BASE%20PADR%C3%83O%20DE%20EXPURGOS%20-%20OPERA%C3%87%C3%95ES.xlsx
-
-BibliotecaBare: https://orizonbr.sharepoint.com/sites/BibliotecaBare/Documentos%20Compartilhados/BARE%20-%20Drive/Acompanhamentos/Acompanhamento%20Parcial%202026.xlsx
+Conta de serviço do Dashboard Operacional - BARE. Por favor, compartilhe a pasta inteira (somente leitura), pois o dashboard usa vários arquivos dela.
