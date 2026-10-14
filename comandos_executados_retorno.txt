@@ -1,3 +1,31 @@
-Gestão de Insumos (Main)[Status Prazo Orizon]	[Linhas]	[SLA vazio]	[Sem Conc Tecnica]	[Sem Conc Analitica]	[Sem Conc Negociacao]	[Sem Conc Item]
-No Prazo	747696		180580	181393	395292	395948
-Fora do Prazo	3921		4	4	87	89
+EVALUATE
+UNION(
+    TOPN(20,
+        SELECTCOLUMNS(
+            FILTER('Gestão de Insumos (Main)', 'Gestão de Insumos (Main)'[Status Prazo Orizon] = "Fora do Prazo"),
+            "Status", 'Gestão de Insumos (Main)'[Status Prazo Orizon],
+            "Tipo", 'Gestão de Insumos (Main)'[Tipo_Item],
+            "Solicitacao", 'Gestão de Insumos (Main)'[Data_Solicitacao],
+            "Tecnica", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item],
+            "Analitica", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Analitica_Item],
+            "Negociacao", 'Gestão de Insumos (Main)'[Data_Conclusao_Negociacao_Item],
+            "Conclusao", 'Gestão de Insumos (Main)'[Data_Conclusao_Item],
+            "SLA", 'Gestão de Insumos (Main)'[SLA_Orizon]
+        ),
+        [Solicitacao], DESC
+    ),
+    TOPN(10,
+        SELECTCOLUMNS(
+            FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item])),
+            "Status", 'Gestão de Insumos (Main)'[Status Prazo Orizon],
+            "Tipo", 'Gestão de Insumos (Main)'[Tipo_Item],
+            "Solicitacao", 'Gestão de Insumos (Main)'[Data_Solicitacao],
+            "Tecnica", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item],
+            "Analitica", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Analitica_Item],
+            "Negociacao", 'Gestão de Insumos (Main)'[Data_Conclusao_Negociacao_Item],
+            "Conclusao", 'Gestão de Insumos (Main)'[Data_Conclusao_Item],
+            "SLA", 'Gestão de Insumos (Main)'[SLA_Orizon]
+        ),
+        [Solicitacao], ASC
+    )
+)
