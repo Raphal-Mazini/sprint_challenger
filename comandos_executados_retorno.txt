@@ -1,31 +1,33 @@
-EVALUATE
-UNION(
-    TOPN(20,
-        SELECTCOLUMNS(
-            FILTER('Gestão de Insumos (Main)', 'Gestão de Insumos (Main)'[Status Prazo Orizon] = "Fora do Prazo"),
-            "Status", 'Gestão de Insumos (Main)'[Status Prazo Orizon],
-            "Tipo", 'Gestão de Insumos (Main)'[Tipo_Item],
-            "Solicitacao", 'Gestão de Insumos (Main)'[Data_Solicitacao],
-            "Tecnica", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item],
-            "Analitica", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Analitica_Item],
-            "Negociacao", 'Gestão de Insumos (Main)'[Data_Conclusao_Negociacao_Item],
-            "Conclusao", 'Gestão de Insumos (Main)'[Data_Conclusao_Item],
-            "SLA", 'Gestão de Insumos (Main)'[SLA_Orizon]
-        ),
-        [Solicitacao], DESC
-    ),
-    TOPN(10,
-        SELECTCOLUMNS(
-            FILTER('Gestão de Insumos (Main)', ISBLANK('Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item])),
-            "Status", 'Gestão de Insumos (Main)'[Status Prazo Orizon],
-            "Tipo", 'Gestão de Insumos (Main)'[Tipo_Item],
-            "Solicitacao", 'Gestão de Insumos (Main)'[Data_Solicitacao],
-            "Tecnica", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item],
-            "Analitica", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Analitica_Item],
-            "Negociacao", 'Gestão de Insumos (Main)'[Data_Conclusao_Negociacao_Item],
-            "Conclusao", 'Gestão de Insumos (Main)'[Data_Conclusao_Item],
-            "SLA", 'Gestão de Insumos (Main)'[SLA_Orizon]
-        ),
-        [Solicitacao], ASC
-    )
-)
+[Status]	[Tipo]	[Solicitacao]	[Tecnica]	[Analitica]	[Negociacao]	[Conclusao]	[SLA]
+Fora do Prazo	Material de consumo	Tue, 01 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00	Tue, 22 Sep 2026 00:00:00	Tue, 22 Sep 2026 00:00:00	8
+Fora do Prazo	OPME	Tue, 01 Sep 2026 00:00:00	Wed, 16 Sep 2026 00:00:00	Wed, 16 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00	9
+Fora do Prazo	OPME	Wed, 09 Sep 2026 00:00:00					9
+Fora do Prazo	OPME	Thu, 03 Sep 2026 00:00:00	Thu, 01 Oct 2026 00:00:00	Thu, 01 Oct 2026 00:00:00			10
+Fora do Prazo	Material de consumo	Tue, 01 Sep 2026 00:00:00	Fri, 18 Sep 2026 00:00:00	Fri, 18 Sep 2026 00:00:00	Wed, 23 Sep 2026 00:00:00	Wed, 23 Sep 2026 00:00:00	7
+Fora do Prazo	Material de consumo	Mon, 28 Sep 2026 00:00:00	Fri, 09 Oct 2026 00:00:00	Fri, 09 Oct 2026 00:00:00	Tue, 13 Oct 2026 00:00:00		7
+Fora do Prazo	OPME	Fri, 18 Sep 2026 00:00:00					10
+Fora do Prazo	OPME	Thu, 03 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00	10
+Fora do Prazo	OPME	Fri, 04 Sep 2026 00:00:00	Thu, 08 Oct 2026 00:00:00	Thu, 08 Oct 2026 00:00:00			9
+Fora do Prazo	Medicamento	Tue, 01 Sep 2026 00:00:00	Fri, 18 Sep 2026 00:00:00	Mon, 21 Sep 2026 00:00:00			10
+Fora do Prazo	Material de consumo	Tue, 01 Sep 2026 00:00:00	Thu, 17 Sep 2026 00:00:00	Fri, 18 Sep 2026 00:00:00	Wed, 23 Sep 2026 00:00:00	Wed, 23 Sep 2026 00:00:00	7
+Fora do Prazo	OPME	Mon, 28 Sep 2026 00:00:00	Tue, 13 Oct 2026 00:00:00	Tue, 13 Oct 2026 00:00:00			9
+Fora do Prazo	Material de consumo	Mon, 28 Sep 2026 00:00:00	Fri, 09 Oct 2026 00:00:00	Fri, 09 Oct 2026 00:00:00	Tue, 13 Oct 2026 00:00:00		7
+Fora do Prazo	Material de consumo	Mon, 28 Sep 2026 00:00:00	Fri, 09 Oct 2026 00:00:00	Fri, 09 Oct 2026 00:00:00			7
+Fora do Prazo	Material de consumo	Thu, 24 Sep 2026 00:00:00					8
+Fora do Prazo	Material de consumo	Mon, 28 Sep 2026 00:00:00	Tue, 06 Oct 2026 00:00:00	Wed, 07 Oct 2026 00:00:00			7
+Fora do Prazo	OPME	Wed, 09 Sep 2026 00:00:00					9
+Fora do Prazo	Material de consumo	Mon, 28 Sep 2026 00:00:00	Tue, 06 Oct 2026 00:00:00	Wed, 07 Oct 2026 00:00:00			7
+Fora do Prazo	Material de consumo	Mon, 28 Sep 2026 00:00:00	Fri, 09 Oct 2026 00:00:00	Fri, 09 Oct 2026 00:00:00			7
+Fora do Prazo	OPME	Fri, 18 Sep 2026 00:00:00	Tue, 13 Oct 2026 00:00:00	Tue, 13 Oct 2026 00:00:00			9
+Fora do Prazo	Material de consumo	Mon, 28 Sep 2026 00:00:00	Fri, 09 Oct 2026 00:00:00	Fri, 09 Oct 2026 00:00:00			7
+No Prazo	Material de consumo	Thu, 05 Nov 2020 00:00:00					0
+No Prazo	Material de consumo	Mon, 19 Oct 2020 00:00:00					0
+No Prazo	Material de consumo	Thu, 05 Nov 2020 00:00:00					0
+No Prazo	Material de consumo	Mon, 19 Oct 2020 00:00:00					0
+No Prazo	Material de consumo	Wed, 14 Oct 2020 00:00:00					0
+No Prazo	Material de consumo	Tue, 04 Aug 2020 00:00:00					0
+No Prazo	Material de consumo	Tue, 27 Oct 2020 00:00:00					0
+No Prazo	Material de consumo	Thu, 08 Oct 2020 00:00:00					0
+No Prazo	Material de consumo	Tue, 04 Aug 2020 00:00:00					0
+No Prazo	Material de consumo	Fri, 12 Jun 2020 00:00:00					0
+No Prazo	Material de consumo	Tue, 14 Jul 2020 00:00:00					0
