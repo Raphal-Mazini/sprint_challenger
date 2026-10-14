@@ -1,2 +1,1 @@
-[ID]	[Name]	[Table]	[DataType]	[DataCategory]	[Description]	[IsHidden]	[IsUnique]	[IsKey]	[IsNullable]	[Alignment]	[SummarizeBy]	[ColumnStorage]	[Type]	[SourceColumn]	[Expression]	[FormatString]	[IsAvailableInMDX]	[SortByColumn]	[GroupingBehavior]	[SourceProviderType]	[DisplayFolder]	[AlternateOf]	[LineageTag]
-2868390	Status Prazo Orizon	Gestão de Insumos (Main)	Text	Regular		false	false	false	true	Default	None	 hive metastore   presentation prod   prz cdp gi relatorio nima  (10)$Coluna (2868390)	Calculated		IF('Gestão de Insumos (Main)'[SLA_Orizon]>'Gestão de Insumos (Main)'[Meta Prazo Orizon],"Fora do Prazo","No Prazo")		true		GroupOnValue				0f5ea007-caa8-4de2-bba6-a46325ad2c43
+EVALUATE FILTER(INFO.VIEW.COLUMNS(), [Name] IN {"SLA_Orizon", "Meta Prazo Orizon"})
