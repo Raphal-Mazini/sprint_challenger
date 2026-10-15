@@ -1,1 +1,5 @@
-Conta de serviço do Dashboard Operacional - BARE. Por favor, compartilhe a pasta inteira (somente leitura), pois o dashboard usa vários arquivos dela.
+% no Prazo Orizon = 
+var noprazo = CALCULATE(COUNT('Gestão de Insumos (Main)'[Status Prazo Orizon]),'Gestão de Insumos (Main)'[Status Prazo Orizon] = "No Prazo")
+var foradoprazo = CALCULATE(COUNT('Gestão de Insumos (Main)'[Status Prazo Orizon]),'Gestão de Insumos (Main)'[Status Prazo Orizon] = "Fora do Prazo")
+var total = noprazo + foradoprazo
+RETURN noprazo / total
