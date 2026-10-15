@@ -1,5 +1,15 @@
-% no Prazo Orizon = 
-var noprazo = CALCULATE(COUNT('Gestão de Insumos (Main)'[Status Prazo Orizon]),'Gestão de Insumos (Main)'[Status Prazo Orizon] = "No Prazo")
-var foradoprazo = CALCULATE(COUNT('Gestão de Insumos (Main)'[Status Prazo Orizon]),'Gestão de Insumos (Main)'[Status Prazo Orizon] = "Fora do Prazo")
-var total = noprazo + foradoprazo
-RETURN noprazo / total
+ no Prazo Orizon =
+VAR total =
+    CALCULATE(
+        COUNTROWS('Gestão de Insumos (Main)'),
+        REMOVEFILTERS('Calendar'),
+        TREATAS(VALUES('Calendar'[Date]), 'Gestão de Insumos (Main)'[Data_Conclusao_Item])
+    )
+VAR noprazo =
+    CALCULATE(
+        COUNTROWS('Gestão de Insumos (Main)'),
+        REMOVEFILTERS('Calendar'),
+        TREATAS(VALUES('Calendar'[Date]), 'Gestão de Insumos (Main)'[Data_Conclusao_Item]),
+        'Gestão de Insumos (Main)'[Status Prazo Orizon] = "No Prazo"
+    )
+RETURN DIVIDE(noprazo, total)
