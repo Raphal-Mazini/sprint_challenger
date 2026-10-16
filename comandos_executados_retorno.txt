@@ -1,15 +1,11 @@
- no Prazo Orizon =
-VAR total =
-    CALCULATE(
-        COUNTROWS('Gestão de Insumos (Main)'),
-        REMOVEFILTERS('Calendar'),
-        TREATAS(VALUES('Calendar'[Date]), 'Gestão de Insumos (Main)'[Data_Conclusao_Item])
-    )
-VAR noprazo =
-    CALCULATE(
-        COUNTROWS('Gestão de Insumos (Main)'),
-        REMOVEFILTERS('Calendar'),
-        TREATAS(VALUES('Calendar'[Date]), 'Gestão de Insumos (Main)'[Data_Conclusao_Item]),
-        'Gestão de Insumos (Main)'[Status Prazo Orizon] = "No Prazo"
-    )
-RETURN DIVIDE(noprazo, total)
+Descrição
+
+Em 01/09, a colaboradora Jennifer Albino foi promovida e passou a atuar em outra área da Orizon. Gostaria por favor que mantivessem os dados até a data em que ela atuou na área de Gestão de Insumos e que a partir de 01/09 ela fosse retirada do quadrante para que não haja impacto nos números do quadrante. 
+
+ 
+
+Em 29/10 houve o pedido de desligamento da colaboradora Mayara Oliveira Terci da Orizon. Gostaria que fosse expurgada do BI para que não haja impacto nos números do quadrante. 
+
+Operação (Sel)
+
+Gestão de Insumos
