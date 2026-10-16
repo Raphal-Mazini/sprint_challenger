@@ -1,3 +1,10 @@
-[Usuario]	[Colaborador]	[Nome]	[Apresenta no Dash]	[Ultima producao]	[Ultimo devolvido]
-jalbino	Jennifer Go	Jennifer Cristina de Souza Go	sim	Tue, 15 Sep 2026 00:00:00	Fri, 04 Sep 2026 00:00:00
-mterci	Mayara Terci	Mayara Oliveira Terci	sim	Mon, 28 Sep 2026 00:00:00	
+Conta no Quadrante =
+VAR u = 'Tabela Produção'[Usuario]
+VAR d = 'Tabela Produção'[Data]
+RETURN
+IF(
+    (u = "jalbino" && d >= DATE(2026, 9, 1))
+        || (u = "mterci" && d >= DATE(2026, 9, 29)),
+    "Não",
+    "Sim"
+)
