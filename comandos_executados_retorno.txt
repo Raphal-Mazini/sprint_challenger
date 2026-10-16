@@ -1,14 +1,3 @@
-EVALUATE
-SELECTCOLUMNS(
-    FILTER(
-        'Excel Usuários x Nomes',
-        CONTAINSSTRING('Excel Usuários x Nomes'[Colaborador], "Jennifer")
-            || CONTAINSSTRING('Excel Usuários x Nomes'[Colaborador], "Mayara")
-    ),
-    "Usuario", 'Excel Usuários x Nomes'[Usuário],
-    "Colaborador", 'Excel Usuários x Nomes'[Colaborador],
-    "Nome", 'Excel Usuários x Nomes'[Nome],
-    "Apresenta no Dash", 'Excel Usuários x Nomes'[Apresenta no Dash],
-    "Ultima producao", CALCULATE(MAX('Tabela Produção'[Data])),
-    "Ultimo devolvido", CALCULATE(MAX('Itens devolvidos'[data_inicio_transicao_status]))
-)
+[Usuario]	[Colaborador]	[Nome]	[Apresenta no Dash]	[Ultima producao]	[Ultimo devolvido]
+jalbino	Jennifer Go	Jennifer Cristina de Souza Go	sim	Tue, 15 Sep 2026 00:00:00	Fri, 04 Sep 2026 00:00:00
+mterci	Mayara Terci	Mayara Oliveira Terci	sim	Mon, 28 Sep 2026 00:00:00	
