@@ -1,11 +1,14 @@
-Descrição
-
-Em 01/09, a colaboradora Jennifer Albino foi promovida e passou a atuar em outra área da Orizon. Gostaria por favor que mantivessem os dados até a data em que ela atuou na área de Gestão de Insumos e que a partir de 01/09 ela fosse retirada do quadrante para que não haja impacto nos números do quadrante. 
-
- 
-
-Em 29/10 houve o pedido de desligamento da colaboradora Mayara Oliveira Terci da Orizon. Gostaria que fosse expurgada do BI para que não haja impacto nos números do quadrante. 
-
-Operação (Sel)
-
-Gestão de Insumos
+EVALUATE
+SELECTCOLUMNS(
+    FILTER(
+        'Excel Usuários x Nomes',
+        CONTAINSSTRING('Excel Usuários x Nomes'[Colaborador], "Jennifer")
+            || CONTAINSSTRING('Excel Usuários x Nomes'[Colaborador], "Mayara")
+    ),
+    "Usuario", 'Excel Usuários x Nomes'[Usuário],
+    "Colaborador", 'Excel Usuários x Nomes'[Colaborador],
+    "Nome", 'Excel Usuários x Nomes'[Nome],
+    "Apresenta no Dash", 'Excel Usuários x Nomes'[Apresenta no Dash],
+    "Ultima producao", CALCULATE(MAX('Tabela Produção'[Data])),
+    "Ultimo devolvido", CALCULATE(MAX('Itens devolvidos'[data_inicio_transicao_status]))
+)
