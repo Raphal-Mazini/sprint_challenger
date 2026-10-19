@@ -1,1 +1,42 @@
-Excel.Workbook(Web.Contents("https://orizonbr.sharepoint.com/sites/CMO/Documentos%20Compartilhados/Produtividade%20BVP.xlsx"), null, true)
+let
+    Nomes = List.Select(
+        Record.FieldNames(#shared),
+        each not Text.Contains(_, ".")
+            and not Text.StartsWith(_, "Erros")
+            and not Text.StartsWith(_, "Consulta")
+            and _ <> "Varredura"
+    ),
+    Analisar = (nome as text) as list =>
+        let
+            t = try Record.Field(#shared, nome),
+            res =
+                if t[HasError] then
+                    {[Consulta = nome, Coluna = "(consulta inteira)", QtdErros = null,
+                      Mensagem = t[Error][Message], Detalhe = null]}
+                else if Value.Is(t[Value], type table) then
+                    let
+                        tab = t[Value],
+                        r = try List.Buffer(List.Select(
+                                List.Transform(Table.ColumnNames(tab), (c) =>
+                                    let
+                                        linhas = Table.SelectRowsWithErrors(tab, {c}),
+                                        qtd = Table.RowCount(linhas),
+                                        ex = if qtd > 0 then try Record.Field(linhas{0}, c) else null
+                                    in
+                                        [Consulta = nome, Coluna = c, QtdErros = qtd,
+                                         Mensagem = if ex <> null and ex[HasError] then ex[Error][Message] else null,
+                                         Detalhe = if ex <> null and ex[HasError]
+                                                   then (try Text.From(ex[Error][Detail]) otherwise null)
+                                                   else null]),
+                                each [QtdErros] > 0))
+                    in
+                        if r[HasError] then
+                            {[Consulta = nome, Coluna = "(consulta inteira)", QtdErros = null,
+                              Mensagem = r[Error][Message], Detalhe = null]}
+                        else r[Value]
+                else {}
+        in
+            res,
+    Resultado = Table.FromRecords(List.Combine(List.Transform(Nomes, Analisar)))
+in
+    Resultado
