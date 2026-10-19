@@ -1,42 +1,33 @@
 let
-    Nomes = List.Select(
-        Record.FieldNames(#shared),
-        each not Text.Contains(_, ".")
-            and not Text.StartsWith(_, "Erros")
-            and not Text.StartsWith(_, "Consulta")
-            and _ <> "Varredura"
+    Nomes = List.Transform(
+        List.Select(Record.FieldNames(#shared), each Text.StartsWith(_, "Erros em ")),
+        each Text.AfterDelimiter(_, "Erros em ")
     ),
-    Analisar = (nome as text) as list =>
+    Analisar = (nome as text) =>
         let
             t = try Record.Field(#shared, nome),
-            res =
+            r =
                 if t[HasError] then
-                    {[Consulta = nome, Coluna = "(consulta inteira)", QtdErros = null,
-                      Mensagem = t[Error][Message], Detalhe = null]}
-                else if Value.Is(t[Value], type table) then
+                    #table({"Coluna", "Mensagem", "Qtd"}, {{"(consulta inteira)", t[Error][Message], null}})
+                else
                     let
-                        tab = t[Value],
-                        r = try List.Buffer(List.Select(
-                                List.Transform(Table.ColumnNames(tab), (c) =>
-                                    let
-                                        linhas = Table.SelectRowsWithErrors(tab, {c}),
-                                        qtd = Table.RowCount(linhas),
-                                        ex = if qtd > 0 then try Record.Field(linhas{0}, c) else null
-                                    in
-                                        [Consulta = nome, Coluna = c, QtdErros = qtd,
-                                         Mensagem = if ex <> null and ex[HasError] then ex[Error][Message] else null,
-                                         Detalhe = if ex <> null and ex[HasError]
-                                                   then (try Text.From(ex[Error][Detail]) otherwise null)
-                                                   else null]),
-                                each [QtdErros] > 0))
+                        erros = Table.SelectRowsWithErrors(t[Value]),
+                        cols = Table.ColumnNames(erros),
+                        marcado = Table.TransformColumns(erros, List.Transform(cols, (c) =>
+                            {c, (v) =>
+                                let x = try v
+                                in if x[HasError]
+                                   then x[Error][Message] & " | valor: " &
+                                        (try Text.From(x[Error][Detail][Value])
+                                         otherwise (try Text.From(x[Error][Detail]) otherwise ""))
+                                   else null})),
+                        comIndice = Table.AddIndexColumn(marcado, "__i"),
+                        despiv = Table.UnpivotOtherColumns(comIndice, {"__i"}, "Coluna", "Mensagem"),
+                        agrup = Table.Group(despiv, {"Coluna", "Mensagem"}, {{"Qtd", Table.RowCount, Int64.Type}})
                     in
-                        if r[HasError] then
-                            {[Consulta = nome, Coluna = "(consulta inteira)", QtdErros = null,
-                              Mensagem = r[Error][Message], Detalhe = null]}
-                        else r[Value]
-                else {}
+                        agrup
         in
-            res,
-    Resultado = Table.FromRecords(List.Combine(List.Transform(Nomes, Analisar)))
+            Table.AddColumn(r, "Consulta", each nome),
+    Resultado = Table.Combine(List.Transform(Nomes, Analisar))
 in
     Resultado
