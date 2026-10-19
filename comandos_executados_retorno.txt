@@ -1,1 +1,17 @@
-https://orizonbr.sharepoint.com/sites/CMO/Documentos%20Compartilhados/Produtividade%20BVP.xlsx
+let
+    Fonte = Excel.Workbook(Web.Contents("https://orizonbr.sharepoint.com/sites/CMO/Documentos%20Compartilhados/Produtividade%20BVP.xlsx"), null, true),
+    #"Base Análises_Sheet" = Fonte{[Item="Base Análises",Kind="Sheet"]}[Data],
+    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Base Análises_Sheet", [PromoteAllScalars=true]),
+    #"Removed Other Columns" = Table.SelectColumns(#"Cabeçalhos Promovidos",{"Protocolo", "ID Processo", "Skill", "Data", "Data Venda", "Data Atualização", "Data Priorização", "SISE", "Detalhe Atividade", "Analista", "CPF", "Nome Cliente", "Situação", "Telefone"}),
+    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Situação", type text}, {"Nome Cliente", type text}, {"CPF", type text}, {"Analista", type text}, {"Detalhe Atividade", type text}, {"SISE", type text}, {"Data Priorização", type date}, {"Data Atualização", type date}, {"Data Venda", type date}, {"Data", type date}, {"Skill", type text}, {"ID Processo", type text}, {"Protocolo", type text}}),
+    #"Texto em Maiúscula" = Table.TransformColumns(#"Changed Type",{{"Analista", Text.Upper, type text}}),
+    #"Linhas Agrupadas" = Table.Group(#"Texto em Maiúscula", {"Data Atualização", "Analista"}, {{"Total", each Table.RowCount(_), Int64.Type}}),
+    #"Colunas Renomeadas" = Table.RenameColumns(#"Linhas Agrupadas",{{"Data Atualização", "Data"}}),
+    #"Added Custom" = Table.AddColumn(#"Colunas Renomeadas", "Origem", each "IntegrALL"),
+    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Esteira", each "Avisos"),
+    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom1",{{"Esteira", type text}, {"Origem", type text}}),
+    #"Added Custom2" = Table.AddColumn(#"Changed Type1", "Expurgo", each true),
+    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom2",{{"Expurgo", type logical}}),
+    #"Valor Substituído" = Table.ReplaceValue(#"Changed Type2","ALINE KARULINI","ALINE",Replacer.ReplaceText,{"Analista"})
+in
+    #"Valor Substituído"
