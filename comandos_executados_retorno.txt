@@ -11,3 +11,9 @@ Coluna	Mensagem	Qtd	Consulta
 (consulta inteira)	O campo 'Cruzamentos (3)' do registro não foi encontrado.	null	Cruzamentos (3)
 (consulta inteira)	O campo 'Encerrados (3)' do registro não foi encontrado.	null	Encerrados (3)
 (consulta inteira)	O campo 'Quali - Base_de_Monitoria (3)' do registro não foi encontrado.	null	Quali - Base_de_Monitoria (3)
+
+
+
+
+
+
