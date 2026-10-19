@@ -1,33 +1,13 @@
-let
-    Nomes = List.Transform(
-        List.Select(Record.FieldNames(#shared), each Text.StartsWith(_, "Erros em ")),
-        each Text.AfterDelimiter(_, "Erros em ")
-    ),
-    Analisar = (nome as text) =>
-        let
-            t = try Record.Field(#shared, nome),
-            r =
-                if t[HasError] then
-                    #table({"Coluna", "Mensagem", "Qtd"}, {{"(consulta inteira)", t[Error][Message], null}})
-                else
-                    let
-                        erros = Table.SelectRowsWithErrors(t[Value]),
-                        cols = Table.ColumnNames(erros),
-                        marcado = Table.TransformColumns(erros, List.Transform(cols, (c) =>
-                            {c, (v) =>
-                                let x = try v
-                                in if x[HasError]
-                                   then x[Error][Message] & " | valor: " &
-                                        (try Text.From(x[Error][Detail][Value])
-                                         otherwise (try Text.From(x[Error][Detail]) otherwise ""))
-                                   else null})),
-                        comIndice = Table.AddIndexColumn(marcado, "__i"),
-                        despiv = Table.UnpivotOtherColumns(comIndice, {"__i"}, "Coluna", "Mensagem"),
-                        agrup = Table.Group(despiv, {"Coluna", "Mensagem"}, {{"Qtd", Table.RowCount, Int64.Type}})
-                    in
-                        agrup
-        in
-            Table.AddColumn(r, "Consulta", each nome),
-    Resultado = Table.Combine(List.Transform(Nomes, Analisar))
-in
-    Resultado
+Coluna	Mensagem	Qtd	Consulta
+(consulta inteira)	O campo 'Quali - Erros Operacionais - BKO (2)' do registro não foi encontrado.	null	Quali - Erros Operacionais - BKO (2)
+(consulta inteira)	O campo 'Quali - Consolidado (2)' do registro não foi encontrado.	null	Quali - Consolidado (2)
+(consulta inteira)	O campo 'Quali - Base_Prev (2)' do registro não foi encontrado.	null	Quali - Base_Prev (2)
+(consulta inteira)	O campo 'Quali - Base_Portal_Vida (2)' do registro não foi encontrado.	null	Quali - Base_Portal_Vida (2)
+(consulta inteira)	O campo 'Cruzamentos (2)' do registro não foi encontrado.	null	Cruzamentos (2)
+(consulta inteira)	O campo 'Quali - Erros Operacionais - BKO (3)' do registro não foi encontrado.	null	Quali - Erros Operacionais - BKO (3)
+(consulta inteira)	O campo 'Quali - Consolidado (3)' do registro não foi encontrado.	null	Quali - Consolidado (3)
+(consulta inteira)	O campo 'Quali - Base_Prev (3)' do registro não foi encontrado.	null	Quali - Base_Prev (3)
+(consulta inteira)	O campo 'Quali - Base_Portal_Vida (3)' do registro não foi encontrado.	null	Quali - Base_Portal_Vida (3)
+(consulta inteira)	O campo 'Cruzamentos (3)' do registro não foi encontrado.	null	Cruzamentos (3)
+(consulta inteira)	O campo 'Encerrados (3)' do registro não foi encontrado.	null	Encerrados (3)
+(consulta inteira)	O campo 'Quali - Base_de_Monitoria (3)' do registro não foi encontrado.	null	Quali - Base_de_Monitoria (3)
