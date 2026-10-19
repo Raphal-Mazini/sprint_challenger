@@ -1,17 +1,53 @@
-let
-    Fonte = Excel.Workbook(Web.Contents("https://orizonbr.sharepoint.com/sites/CMO/Documentos%20Compartilhados/Produtividade%20BVP.xlsx"), null, true),
-    #"Base Análises_Sheet" = Fonte{[Item="Base Análises",Kind="Sheet"]}[Data],
-    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(#"Base Análises_Sheet", [PromoteAllScalars=true]),
-    #"Removed Other Columns" = Table.SelectColumns(#"Cabeçalhos Promovidos",{"Protocolo", "ID Processo", "Skill", "Data", "Data Venda", "Data Atualização", "Data Priorização", "SISE", "Detalhe Atividade", "Analista", "CPF", "Nome Cliente", "Situação", "Telefone"}),
-    #"Changed Type" = Table.TransformColumnTypes(#"Removed Other Columns",{{"Situação", type text}, {"Nome Cliente", type text}, {"CPF", type text}, {"Analista", type text}, {"Detalhe Atividade", type text}, {"SISE", type text}, {"Data Priorização", type date}, {"Data Atualização", type date}, {"Data Venda", type date}, {"Data", type date}, {"Skill", type text}, {"ID Processo", type text}, {"Protocolo", type text}}),
-    #"Texto em Maiúscula" = Table.TransformColumns(#"Changed Type",{{"Analista", Text.Upper, type text}}),
-    #"Linhas Agrupadas" = Table.Group(#"Texto em Maiúscula", {"Data Atualização", "Analista"}, {{"Total", each Table.RowCount(_), Int64.Type}}),
-    #"Colunas Renomeadas" = Table.RenameColumns(#"Linhas Agrupadas",{{"Data Atualização", "Data"}}),
-    #"Added Custom" = Table.AddColumn(#"Colunas Renomeadas", "Origem", each "IntegrALL"),
-    #"Added Custom1" = Table.AddColumn(#"Added Custom", "Esteira", each "Avisos"),
-    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom1",{{"Esteira", type text}, {"Origem", type text}}),
-    #"Added Custom2" = Table.AddColumn(#"Changed Type1", "Expurgo", each true),
-    #"Changed Type2" = Table.TransformColumnTypes(#"Added Custom2",{{"Expurgo", type logical}}),
-    #"Valor Substituído" = Table.ReplaceValue(#"Changed Type2","ALINE KARULINI","ALINE",Replacer.ReplaceText,{"Analista"})
-in
-    #"Valor Substituído"
+Erro de fonte de dados:	DataSource.NotFound: Excel Workbook: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine. The 64-bit version of the Access Database Engine OLEDB provider may be required to read this type of file. To download the client software, visit the following site: https://go.microsoft.com/fwlink/?LinkID=285987.. Microsoft.Data.Mashup.ErrorCode = 10478. . The exception was raised by the IDbCommand interface.
+Cluster URI:	WABI-BRAZIL-SOUTH-B-PRIMARY-redirect.analysis.windows.net
+ID da atividade:	8f05013f-ad9f-461a-be76-048b7304e3e2
+Solicitar ID:	d3f84771-f930-4656-a738-a064193b989b
+Hora:	2026-10-19 12:03:21Z
+Detalhes	
+#	Tipo	Iniciar	Terminar	Duração	Status	Detalhes
+1	Dados	19/10/2026, 08:54:18	19/10/2026, 08:54:32	13s	Falhou	(Mostrar)
+2	Dados	19/10/2026, 08:55:32	19/10/2026, 08:55:49	17s	Falhou	(Mostrar)
+3	Dados	19/10/2026, 08:57:49	19/10/2026, 08:57:59	9s	Falhou	(Mostrar)
+4	Dados	19/10/2026, 09:02:59	19/10/2026, 09:03:21	21s	Falhou	(Mostrar)
+
+
+
+
+
+
+
+
+
+
+Erro
+
+Erro de fonte de dados: DataSource.NotFound: Excel Workbook: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine. The 64-bit version of the Access Database Engine OLEDB provider may be required to read this type of file. To download the client software, visit the following site: https://go.microsoft.com/fwlink/?LinkID=285987.. Microsoft.Data.Mashup.ErrorCode = 10478. . The exception was raised by the IDbCommand interface.
+
+
+
+
+
+
+Erro
+
+Erro de fonte de dados: DataSource.NotFound: Excel Workbook: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine. The 64-bit version of the Access Database Engine OLEDB provider may be required to read this type of file. To download the client software, visit the following site: https://go.microsoft.com/fwlink/?LinkID=285987.. Microsoft.Data.Mashup.ErrorCode = 10478. . The exception was raised by the IDbCommand interface.
+
+
+
+
+
+
+
+Erro
+
+Erro de fonte de dados: DataSource.NotFound: Excel Workbook: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine. The 64-bit version of the Access Database Engine OLEDB provider may be required to read this type of file. To download the client software, visit the following site: https://go.microsoft.com/fwlink/?LinkID=285987.. Microsoft.Data.Mashup.ErrorCode = 10478. . The exception was raised by the IDbCommand interface.
+
+
+
+
+
+
+
+Erro
+
+Erro de fonte de dados: DataSource.NotFound: Excel Workbook: The 'Microsoft.ACE.OLEDB.12.0' provider is not registered on the local machine. The 64-bit version of the Access Database Engine OLEDB provider may be required to read this type of file. To download the client software, visit the following site: https://go.microsoft.com/fwlink/?LinkID=285987.. Microsoft.Data.Mashup.ErrorCode = 10478. . The exception was raised by the IDbCommand interface.
