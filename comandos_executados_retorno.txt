@@ -1,2 +1,1 @@
-Status Prazo = IF(Unificado[SLA] = BLANK(), BLANK(),
-IF(Unificado[SLA] <=5,"No Prazo","Fora do Prazo"))
+Chave Finalizado = Unificado[Data Finalizado] & Unificado[Nome] & Unificado[Esteira]
