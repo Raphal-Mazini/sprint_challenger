@@ -1,5 +1,2 @@
-EVALUATE
-ROW(
-    "Pedidos com SLA", COUNTROWS(FILTER(Unificado, NOT ISBLANK(Unificado[Status Prazo]))),
-    "Com datas diferentes", COUNTROWS(FILTER(Unificado, NOT ISBLANK(Unificado[Status Prazo]) && Unificado[Data] <> Unificado[Data Finalizado]))
-)
+[Pedidos com SLA]	[Com datas diferentes]
+49384	
