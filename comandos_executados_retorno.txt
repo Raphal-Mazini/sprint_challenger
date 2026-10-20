@@ -1,1 +1,16 @@
-Total Fora do Prazo = CALCULATE(CALCULATE(COUNT(Unificado[Status Prazo]),Unificado[Status Prazo] = "Fora do Prazo"),FILTER(Unificado,Unificado[Chave Finalizado]=Produtividade[Chave]))
+EVALUATE
+VAR base = FILTER(Unificado, NOT ISBLANK(Unificado[Status Prazo]))
+VAR meses = DISTINCT(SELECTCOLUMNS(base, "Mes", EOMONTH(Unificado[Data Finalizado], 0)))
+RETURN
+ADDCOLUMNS(
+    meses,
+    "Qtd Entrada", COUNTROWS(FILTER(base, EOMONTH(Unificado[Data], 0) = [Mes])),
+    "% Antigo Entrada", DIVIDE(
+        COUNTROWS(FILTER(base, EOMONTH(Unificado[Data], 0) = [Mes] && Unificado[Status Prazo] = "No Prazo")),
+        COUNTROWS(FILTER(base, EOMONTH(Unificado[Data], 0) = [Mes]))),
+    "Qtd Conclusao", COUNTROWS(FILTER(base, EOMONTH(Unificado[Data Finalizado], 0) = [Mes])),
+    "% Novo Conclusao", DIVIDE(
+        COUNTROWS(FILTER(base, EOMONTH(Unificado[Data Finalizado], 0) = [Mes] && Unificado[Status Prazo] = "No Prazo")),
+        COUNTROWS(FILTER(base, EOMONTH(Unificado[Data Finalizado], 0) = [Mes])))
+)
+ORDER BY [Mes]
