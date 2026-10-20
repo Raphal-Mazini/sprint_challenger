@@ -1,12 +1,15 @@
-Passando um retorno sobre o dashboard Acomp. BVP e o caso da produção da Daiana Belo no dia 05/10.
-
-O que já identifiquei até aqui:
-
-A produção do IntegrALL que aparece no dashboard vem da planilha "Produtividade BVP.xlsx" (aba Base Análises), no SharePoint do CMO. Conferi a planilha e ela tem dados até 16/10, mas não existe nenhum registro com data de 05/10, nem da Daiana nem de nenhum outro analista. Por isso, nesse dia, aparecem só os 23 registros que vêm do Forms. O dashboard está mostrando o que existe na base; aparentemente, o dia 05/10 é que não está constando.
-
-Algumas tabelas acusam linhas com erro durante a atualização, também estou levantando quais são e o motivo, para garantir que nenhum registro esteja ficando de fora da contagem.
-
-Para avançar no caso da Daiana, preciso de uma ajuda de vocês: quem é responsável por alimentar a planilha "Produtividade BVP.xlsx"? Preciso confirmar se a extração do dia 05/10 foi feita e por que não entrou na aba Base Análises. Assim que o dia for incluído, a produção do Integral dela passa a aparecer no dashboard.
-
-Continuo trabalhando nos outros pontos e trago novidades assim que tiver.
-Obrigado!
+let
+    Fonte = Excel.Workbook(Web.Contents("https://orizonbr.sharepoint.com/sites/FORMSeBI-OPME/Documentos%20Compartilhados/Produtividade%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20OPME%20%202026.xlsx"), null, true),
+    Sheet1_Sheet = Fonte{[Item="Sheet1",Kind="Sheet"]}[Data],
+    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
+    #"Colunas Renomeadas" = Table.RenameColumns(#"Cabeçalhos Promovidos",{{"Nome", "Colaborador"}}),
+    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"QTD de E-mails ""RESPONDIDOS""", Int64.Type}}),
+    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each true),
+    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Linhas Filtradas",{{"Meu dia de trabalho", type date}}),
+    #"Colunas Renomeadas1" = Table.RenameColumns(#"Tipo Alterado1",{{"Meu dia de trabalho", "DataTrabalho"}}),
+    #"Linhas Filtradas1" = Table.SelectRows(#"Colunas Renomeadas1", each true),
+    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Linhas Filtradas1",{{"QTD de E-mails ""ENVIADOS""", Int64.Type}}),
+    #"Erros Substituídos" = Table.ReplaceErrorValues(#"Tipo Alterado2", {{"QTD de E-mails ""RESPONDIDOS""", 0}}),
+    #"Erros Substituídos1" = Table.ReplaceErrorValues(#"Erros Substituídos", {{"QTD de E-mails ""ENVIADOS""", 0}})
+in
+    #"Erros Substituídos1"
