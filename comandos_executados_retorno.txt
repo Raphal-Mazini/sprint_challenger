@@ -1,42 +1,12 @@
-let
-    Nomes = List.Select(
-        Record.FieldNames(#shared),
-        each not Text.Contains(_, ".")
-            and not Text.StartsWith(_, "Erros")
-            and not Text.StartsWith(_, "Consulta")
-            and _ <> "Varredura"
-    ),
-    Analisar = (nome as text) as list =>
-        let
-            t = try Record.Field(#shared, nome),
-            res =
-                if t[HasError] then
-                    {[Consulta = nome, Coluna = "(consulta inteira)", QtdErros = null,
-                      Mensagem = t[Error][Message], Detalhe = null]}
-                else if Value.Is(t[Value], type table) then
-                    let
-                        tab = t[Value],
-                        r = try List.Buffer(List.Select(
-                                List.Transform(Table.ColumnNames(tab), (c) =>
-                                    let
-                                        linhas = Table.SelectRowsWithErrors(tab, {c}),
-                                        qtd = Table.RowCount(linhas),
-                                        ex = if qtd > 0 then try Record.Field(linhas{0}, c) else null
-                                    in
-                                        [Consulta = nome, Coluna = c, QtdErros = qtd,
-                                         Mensagem = if ex <> null and ex[HasError] then ex[Error][Message] else null,
-                                         Detalhe = if ex <> null and ex[HasError]
-                                                   then (try Text.From(ex[Error][Detail]) otherwise null)
-                                                   else null]),
-                                each [QtdErros] > 0))
-                    in
-                        if r[HasError] then
-                            {[Consulta = nome, Coluna = "(consulta inteira)", QtdErros = null,
-                              Mensagem = r[Error][Message], Detalhe = null]}
-                        else r[Value]
-                else {}
-        in
-            res,
-    Resultado = Table.FromRecords(List.Combine(List.Transform(Nomes, Analisar)))
-in
-    Resultado
+Passando um retorno sobre o dashboard Acomp. BVP e o caso da produção da Daiana Belo no dia 05/10.
+
+O que já identifiquei até aqui:
+
+A produção do IntegrALL que aparece no dashboard vem da planilha "Produtividade BVP.xlsx" (aba Base Análises), no SharePoint do CMO. Conferi a planilha e ela tem dados até 16/10, mas não existe nenhum registro com data de 05/10, nem da Daiana nem de nenhum outro analista. Por isso, nesse dia, aparecem só os 23 registros que vêm do Forms. O dashboard está mostrando o que existe na base; aparentemente, o dia 05/10 é que não está constando.
+
+Algumas tabelas acusam linhas com erro durante a atualização, também estou levantando quais são e o motivo, para garantir que nenhum registro esteja ficando de fora da contagem.
+
+Para avançar no caso da Daiana, preciso de uma ajuda de vocês: quem é responsável por alimentar a planilha "Produtividade BVP.xlsx"? Preciso confirmar se a extração do dia 05/10 foi feita e por que não entrou na aba Base Análises. Assim que o dia for incluído, a produção do Integral dela passa a aparecer no dashboard.
+
+Continuo trabalhando nos outros pontos e trago novidades assim que tiver.
+Obrigado!
