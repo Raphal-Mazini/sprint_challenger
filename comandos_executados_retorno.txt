@@ -1,2 +1,1 @@
-[Pedidos com SLA]	[Com datas diferentes]
-49384	
+Total No Prazo = CALCULATE(CALCULATE(COUNT(Unificado[Status Prazo]),Unificado[Status Prazo] = "No Prazo"),FILTER(Unificado,Unificado[Chave]=Produtividade[Chave]))
