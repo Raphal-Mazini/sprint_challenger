@@ -1,1 +1,1 @@
-Total Fora do Prazo = CALCULATE(CALCULATE(COUNT(Unificado[Status Prazo]),Unificado[Status Prazo] = "Fora do Prazo"),FILTER(Unificado,Unificado[Chave]=Produtividade[Chave]))
+Total Fora do Prazo = CALCULATE(CALCULATE(COUNT(Unificado[Status Prazo]),Unificado[Status Prazo] = "Fora do Prazo"),FILTER(Unificado,Unificado[Chave Finalizado]=Produtividade[Chave]))
