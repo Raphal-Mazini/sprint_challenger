@@ -1,15 +1,1 @@
-let
-    Fonte = Excel.Workbook(Web.Contents("https://orizonbr.sharepoint.com/sites/FORMSeBI-OPME/Documentos%20Compartilhados/Produtividade%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20%20OPME%20%202026.xlsx"), null, true),
-    Sheet1_Sheet = Fonte{[Item="Sheet1",Kind="Sheet"]}[Data],
-    #"Cabeçalhos Promovidos" = Table.PromoteHeaders(Sheet1_Sheet, [PromoteAllScalars=true]),
-    #"Colunas Renomeadas" = Table.RenameColumns(#"Cabeçalhos Promovidos",{{"Nome", "Colaborador"}}),
-    #"Tipo Alterado" = Table.TransformColumnTypes(#"Colunas Renomeadas",{{"QTD de E-mails ""RESPONDIDOS""", Int64.Type}}),
-    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each true),
-    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Linhas Filtradas",{{"Meu dia de trabalho", type date}}),
-    #"Colunas Renomeadas1" = Table.RenameColumns(#"Tipo Alterado1",{{"Meu dia de trabalho", "DataTrabalho"}}),
-    #"Linhas Filtradas1" = Table.SelectRows(#"Colunas Renomeadas1", each true),
-    #"Tipo Alterado2" = Table.TransformColumnTypes(#"Linhas Filtradas1",{{"QTD de E-mails ""ENVIADOS""", Int64.Type}}),
-    #"Erros Substituídos" = Table.ReplaceErrorValues(#"Tipo Alterado2", {{"QTD de E-mails ""RESPONDIDOS""", 0}}),
-    #"Erros Substituídos1" = Table.ReplaceErrorValues(#"Erros Substituídos", {{"QTD de E-mails ""ENVIADOS""", 0}})
-in
-    #"Erros Substituídos1"
+Total No Prazo = CALCULATE(CALCULATE(COUNT(Unificado[Status Prazo]),Unificado[Status Prazo] = "No Prazo"),FILTER(Unificado,Unificado[Chave]=Produtividade[Chave]))
