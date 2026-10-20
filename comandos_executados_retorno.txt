@@ -1,8 +1,2 @@
-let
-    Fonte = Table.Combine({#"Aguardando Correção do Pós-cirúrgico", #"Aguardando Correção da Nota Fiscal", #"Aguardando NF/Outros Documentos", #"Pronta para Faturamento", #"Remessa preparada para envio", #"Processo Cancelado(Orizon)", #"Aguardando Conferência Nota Fiscal/Outros Documento", #"Finalizado - Aguardando Pagamento"}),
-    #"Tipo Alterado" = Table.TransformColumnTypes(Fonte,{{"NUM_PEDIDO", Int64.Type}, {"Data", type date}}),
-    #"Linhas Filtradas" = Table.SelectRows(#"Tipo Alterado", each [Data] > #date(2024, 07, 31)),
-    #"Tipo Alterado1" = Table.TransformColumnTypes(#"Linhas Filtradas",{{"Data Finalizado", type date}}),
-    #"Texto em Maiúscula" = Table.TransformColumns(#"Tipo Alterado1",{{"Nome", Text.Upper, type text}})
-in
-    #"Texto em Maiúscula"
+Status Prazo = IF(Unificado[SLA] = BLANK(), BLANK(),
+IF(Unificado[SLA] <=5,"No Prazo","Fora do Prazo"))
