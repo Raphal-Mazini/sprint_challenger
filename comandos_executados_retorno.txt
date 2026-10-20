@@ -1,1 +1,4 @@
-Total Fora do Prazo = CALCULATE(CALCULATE(COUNT(Unificado[Status Prazo]),Unificado[Status Prazo] = "Fora do Prazo"),FILTER(Unificado,Unificado[Chave]=Produtividade[Chave]))
+Dispersão Quadrante =
+VAR q1 = [% Q1 dia]
+VAR q4 = [% Q4 dia]
+RETURN IF(q4 > 0, DIVIDE(q1, q4) - 1)
