@@ -1,1 +1,16 @@
 Chave Finalizado = Unificado[Data Finalizado] & Unificado[Nome] & Unificado[Esteira]
+
+
+
+
+
+
+Total No Prazo = CALCULATE(CALCULATE(COUNT(Unificado[Status Prazo]),Unificado[Status Prazo] = "No Prazo"),FILTER(Unificado,Unificado[Chave Finalizado]=Produtividade[Chave]))
+
+
+
+
+
+
+
+
