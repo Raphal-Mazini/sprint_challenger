@@ -1,1 +1,12 @@
 
+EVALUATE
+SELECTCOLUMNS(
+    FILTER(
+        INFO.VIEW.MEASURES(),
+        CONTAINSSTRING([Name], "Entrada") || CONTAINSSTRING([Name], "Qualific") || CONTAINSSTRING([Name], "Devol") || CONTAINSSTRING([Name], "Produ")
+    ),
+    "Tabela", [Table],
+    "Medida", [Name],
+    "Formula", [Expression]
+)
+ORDER BY [Tabela], [Medida]
