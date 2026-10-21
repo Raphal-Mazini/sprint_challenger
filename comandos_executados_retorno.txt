@@ -1,12 +1,29 @@
+[Tabela]	[Medida]	[Formula]
+Itens devolvidos	Count_devolvidos	
+COUNT('Itens devolvidos'[id_transicao_status_solicitacao_item])
 
-EVALUATE
-SELECTCOLUMNS(
-    FILTER(
-        INFO.VIEW.MEASURES(),
-        CONTAINSSTRING([Name], "Entrada") || CONTAINSSTRING([Name], "Qualific") || CONTAINSSTRING([Name], "Devol") || CONTAINSSTRING([Name], "Produ")
-    ),
-    "Tabela", [Table],
-    "Medida", [Name],
-    "Formula", [Expression]
+Itens devolvidos	Média dia Devolvidos	COUNT('Itens devolvidos'[data_final_transicao_status])/ DISTINCTCOUNT('Itens devolvidos'[data_final_transicao_status])
+Tabela Produção	Media Devolvidos	
+
+AVERAGEX(
+    VALUES('Calendar'[Date]),
+    [Count_Devolvidos]
 )
-ORDER BY [Tabela], [Medida]
+Tabela Produção	Media Produção	
+DIVIDE(
+    [Total Produção],
+    [Dias Prod],
+    0
+)
+Tabela Produção	Media Qualificado	
+
+AVERAGEX(
+    VALUES('Calendar'[Date]),
+    [Count_Protocolo]
+)
+Tabela Produção	Media Total Produção	
+AVERAGEX(
+    VALUES('Calendar'[Date]),
+    [Total Produção]
+)
+Tabela Produção	Total Produção	[Count_Protocolo] + [Count_devolvidos]
