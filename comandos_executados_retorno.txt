@@ -1,33 +1,11 @@
-Alteração racional da produtividade individual
-
-Vincular ticket
-
-
-Criar
-
-Checklist
-
-Add Tempo to plan and track time
-
-Informações principais
-
-Michelle Vieira Gianini
-criou esta solicitação
-via
-Portal
-Ver solicitação no portal
-Descrição
-
-Por favor, conforme alinhado realizar as seguintes alterações:
-
-Na aba Produtividade individual, retirar do gráfico o volume de entrada. 
-
-Ajustar o filtro para data de conclusão analítica ou técnica. Talvez tenhamos que fazer dois filtros pois a data de conclusão técnica pode ser diferente da conclusão analítica. 
-
-
- 
-
-Operação (Sel)
-
-Gestão de Insumos
-
+EVALUATE
+SELECTCOLUMNS(
+    FILTER(
+        INFO.VIEW.COLUMNS(),
+        CONTAINSSTRING([Name], "Data") || CONTAINSSTRING([Name], "Conclus") || CONTAINSSTRING([Name], "Dt")
+    ),
+    "Tabela", [Table],
+    "Coluna", [Name],
+    "Tipo", [DataType]
+)
+ORDER BY [Tabela], [Coluna]
