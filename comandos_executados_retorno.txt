@@ -1,24 +1,28 @@
-[De]	[Para]	[Ativa]
-Gestão de Insumos (Main)[dt_carga]	LocalDateTable_3738ab62-4cef-44bf-afb6-89f104211c87[Date]	true
-Gestão de Insumos (Main)[Data_Solicitacao]	Calendar[Date]	true
-Gestão de Insumos (Main)[Data_Conclusao_Qualificacao_Tecnica_Item]	LocalDateTable_1a0785bc-b327-47c3-9f61-da541e3a60d8[Date]	true
-Gestão de Insumos (Main)[Data_Conclusao_Qualificacao_Analitica_Item]	LocalDateTable_a5571925-4d76-47ed-afb0-9ab2a6d88222[Date]	true
-Gestão de Insumos (Main)[Data_Conclusao_Negociacao_Item]	LocalDateTable_3a7e89df-b27a-4432-af10-898e0931e599[Date]	true
-Gestão de Insumos (Main)[Data_Conclusao_Item]	LocalDateTable_aea3a639-31c1-44d7-8694-a052e884d15a[Date]	true
-Gestão de Insumos (Main)[Data do cancelamento]	LocalDateTable_e5adf358-6932-440e-8c67-f47663a9597f[Date]	true
-Gestão de Insumos (Main)[Tipo_Item]	Tipo Item[tipo_item]	true
-Calendar[Date]	LocalDateTable_d89fdcd8-c258-49b5-b1a1-f96d71ed6ae6[Date]	true
-Tabela Feriado[Data]	LocalDateTable_4fc9d00e-d4c1-49e7-a7ba-fea5bdff1af5[Date]	true
-Tabela Produção[Usuario]	Usuários[usuario]	true
-Tabela Produção[Tipo Item]	Tipo Item[tipo_item]	true
-Tabela Produção[Data]	Calendar[Date]	true
-Tabela Produção[Chave]	Meta x Pesos[Chave]	true
-Itens devolvidos[dt_carga]	LocalDateTable_85fc0613-95a3-44a5-b84e-d86373304935[Date]	true
-Itens devolvidos[Tipo_Item]	Tipo Item[tipo_item]	true
-Itens devolvidos[Id do nome]	Excel Usuários x Nomes[ID usuario itens devolvidos]	true
-Itens devolvidos[data_final_transicao_status]	LocalDateTable_46dbff96-30fd-4568-adea-7b0b81204924[Date]	true
-Itens devolvidos[data_inicio_transicao_status]	Calendar[Date]	true
-Itens devolvidos[Chave]	Meta x Pesos[Chave]	true
-Tabela de cancelados[Data do cancelamento]	LocalDateTable_cd43f3e9-96e9-49fd-b7c1-2c2161fce5c0[Date]	true
-Usuários[Usuario]	Excel Usuários x Nomes[Usuário]	true
-Excel Usuários x Nomes[Usuário]	Usuários[usuario]	true
+Tabela Produção = 
+
+
+FILTER(
+
+
+UNION(
+    SELECTCOLUMNS('Gestão de Insumos (Main)', 
+    "Usuario", 'Gestão de Insumos (Main)'[Responsavel_Qualificacao_Tecnica],
+    "Operadora", 'Gestão de Insumos (Main)'[Operadora],
+    "Tipo Item",  'Gestão de Insumos (Main)'[Tipo_Item],
+    "Status Item", 'Gestão de Insumos (Main)'[Status_Item],
+    "Protocolo", 'Gestão de Insumos (Main)'[Protocolo_Item],
+    "Data", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item],
+    "Chave",  "Tecnica" & " | " & 'Gestão de Insumos (Main)'[Tipo_Item],
+    "Equipe","Tecnica"),
+
+     SELECTCOLUMNS('Gestão de Insumos (Main)', 
+    "Usuario", 'Gestão de Insumos (Main)'[Responsavel_Qualificacao_Analitica],
+    "Operadora", 'Gestão de Insumos (Main)'[Operadora],
+    "Tipo Item",  'Gestão de Insumos (Main)'[Tipo_Item],
+    "Status Item", 'Gestão de Insumos (Main)'[Status_Item],
+    "Protocolo", 'Gestão de Insumos (Main)'[Protocolo_Item],
+    "Data", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Analitica_Item],
+    "Chave", "Analitica" & " | " & 'Gestão de Insumos (Main)'[Tipo_Item],
+    "Equipe","Analitica")
+    
+    ),[Data] <> BLANK())
