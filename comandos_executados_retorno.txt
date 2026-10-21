@@ -1,11 +1,18 @@
-EVALUATE
-SELECTCOLUMNS(
-    FILTER(
-        INFO.VIEW.COLUMNS(),
-        CONTAINSSTRING([Name], "Data") || CONTAINSSTRING([Name], "Conclus") || CONTAINSSTRING([Name], "Dt")
-    ),
-    "Tabela", [Table],
-    "Coluna", [Name],
-    "Tipo", [DataType]
-)
-ORDER BY [Tabela], [Coluna]
+[Tabela]	[Coluna]	[Tipo]
+Gestão de Insumos (Main)	Ano_Data_Solicitacao	Integer
+Gestão de Insumos (Main)	Data do cancelamento	Date
+Gestão de Insumos (Main)	Data_Conclusao_Item	Date
+Gestão de Insumos (Main)	Data_Conclusao_Negociacao_Item	Date
+Gestão de Insumos (Main)	Data_Conclusao_Qualificacao_Analitica_Item	Date
+Gestão de Insumos (Main)	Data_Conclusao_Qualificacao_Tecnica_Item	Date
+Gestão de Insumos (Main)	Data_Solicitacao	Date
+Gestão de Insumos (Main)	Data_Vigencia	Text
+Gestão de Insumos (Main)	Dia_Data_Solicitacao	Integer
+Gestão de Insumos (Main)	dt_carga	Date
+Gestão de Insumos (Main)	Mes_Data_Solicitacao	Integer
+Itens devolvidos	data_final_transicao_status	Date
+Itens devolvidos	data_inicio_transicao_status	Date
+Itens devolvidos	dt_carga	Date
+Tabela de cancelados	Data do cancelamento	Date
+Tabela Feriado	Data	Date
+Tabela Produção	Data	Date
