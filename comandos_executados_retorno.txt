@@ -1,28 +1,14 @@
-Tabela Produção = 
+Michelle Vieira Gianini
+criou esta solicitação
+via
+Portal
+Ver solicitação no portal
+Descrição
 
+Criar glossário para formalização das métricas.
 
-FILTER(
+Nos anexos coloquei exemplo de glossário que utilizo em outro dash. 
 
+Operação (Sel)
 
-UNION(
-    SELECTCOLUMNS('Gestão de Insumos (Main)', 
-    "Usuario", 'Gestão de Insumos (Main)'[Responsavel_Qualificacao_Tecnica],
-    "Operadora", 'Gestão de Insumos (Main)'[Operadora],
-    "Tipo Item",  'Gestão de Insumos (Main)'[Tipo_Item],
-    "Status Item", 'Gestão de Insumos (Main)'[Status_Item],
-    "Protocolo", 'Gestão de Insumos (Main)'[Protocolo_Item],
-    "Data", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Tecnica_Item],
-    "Chave",  "Tecnica" & " | " & 'Gestão de Insumos (Main)'[Tipo_Item],
-    "Equipe","Tecnica"),
-
-     SELECTCOLUMNS('Gestão de Insumos (Main)', 
-    "Usuario", 'Gestão de Insumos (Main)'[Responsavel_Qualificacao_Analitica],
-    "Operadora", 'Gestão de Insumos (Main)'[Operadora],
-    "Tipo Item",  'Gestão de Insumos (Main)'[Tipo_Item],
-    "Status Item", 'Gestão de Insumos (Main)'[Status_Item],
-    "Protocolo", 'Gestão de Insumos (Main)'[Protocolo_Item],
-    "Data", 'Gestão de Insumos (Main)'[Data_Conclusao_Qualificacao_Analitica_Item],
-    "Chave", "Analitica" & " | " & 'Gestão de Insumos (Main)'[Tipo_Item],
-    "Equipe","Analitica")
-    
-    ),[Data] <> BLANK())
+Gestão de Insumos
