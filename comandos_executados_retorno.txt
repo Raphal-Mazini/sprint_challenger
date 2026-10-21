@@ -1,11 +1,6 @@
-EVALUATE
-SELECTCOLUMNS(
-    FILTER(
-        INFO.VIEW.MEASURES(),
-        CONTAINSSTRING([Name], "Count") || CONTAINSSTRING([Name], "Protocolo") || CONTAINSSTRING([Name], "Entr")
-    ),
-    "Tabela", [Table],
-    "Medida", [Name],
-    "Formula", [Expression]
-)
-ORDER BY [Tabela], [Medida]
+[Tabela]	[Medida]	[Formula]
+Gestão de Insumos (Main)	Count_Protocolo_item	count('Gestão de Insumos (Main)'[Protocolo_Item])
+Itens devolvidos	Count_devolvidos	
+COUNT('Itens devolvidos'[id_transicao_status_solicitacao_item])
+
+Tabela Produção	Count_Protocolo	COUNT('Tabela Produção'[Protocolo])
