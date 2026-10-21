@@ -1,4 +1,33 @@
-Dispersão Quadrante =
-VAR q1 = [% Q1 dia]
-VAR q4 = [% Q4 dia]
-RETURN IF(q4 > 0, DIVIDE(q1, q4) - 1)
+Alteração racional da produtividade individual
+
+Vincular ticket
+
+
+Criar
+
+Checklist
+
+Add Tempo to plan and track time
+
+Informações principais
+
+Michelle Vieira Gianini
+criou esta solicitação
+via
+Portal
+Ver solicitação no portal
+Descrição
+
+Por favor, conforme alinhado realizar as seguintes alterações:
+
+Na aba Produtividade individual, retirar do gráfico o volume de entrada. 
+
+Ajustar o filtro para data de conclusão analítica ou técnica. Talvez tenhamos que fazer dois filtros pois a data de conclusão técnica pode ser diferente da conclusão analítica. 
+
+
+ 
+
+Operação (Sel)
+
+Gestão de Insumos
+
