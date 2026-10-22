@@ -1,14 +1,9 @@
-Michelle Vieira Gianini
-criou esta solicitação
-via
-Portal
-Ver solicitação no portal
-Descrição
 
-Criar glossário para formalização das métricas.
-
-Nos anexos coloquei exemplo de glossário que utilizo em outro dash. 
-
-Operação (Sel)
-
-Gestão de Insumos
+EVALUATE
+SELECTCOLUMNS(
+    FILTER(INFO.VIEW.MEASURES(), CONTAINSSTRING([Name], "SLA")),
+    "Tabela", [Table],
+    "Medida", [Name],
+    "Formula", [Expression]
+)
+ORDER BY [Tabela], [Medida]
