@@ -1,9 +1,9 @@
 
 EVALUATE
 SELECTCOLUMNS(
-    FILTER(INFO.VIEW.MEASURES(), CONTAINSSTRING([Name], "SLA")),
+    FILTER(INFO.VIEW.COLUMNS(), CONTAINSSTRING([Name], "SLA")),
     "Tabela", [Table],
-    "Medida", [Name],
+    "Coluna", [Name],
     "Formula", [Expression]
 )
-ORDER BY [Tabela], [Medida]
+ORDER BY [Tabela], [Coluna]
